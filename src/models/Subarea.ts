@@ -1,23 +1,42 @@
-import { uuid } from 'uuidv4';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
 
-interface Subarea {
-  id: string;
-  name?: string;
-  tag: string;
-  sector: string;
-  local: string;
-  observations: string;
-}
+import Procedure from './Procedure';
 
+@Entity('subareas')
 class Subarea {
-  constructor({ local, observations, sector, tag, name }: Omit<Subarea, 'id'>) {
-    this.id = uuid();
-    this.name = name;
-    this.tag = tag;
-    this.local = local;
-    this.sector = sector;
-    this.observations = observations;
-  }
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  name?: string;
+
+  @Column()
+  tag: string;
+
+  @Column()
+  sector: string;
+
+  @Column()
+  local: string;
+
+  @Column()
+  observations: string;
+
+  @OneToMany(() => Procedure, procedure => procedure.subarea)
+  procedures: Procedure[];
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
 export default Subarea;

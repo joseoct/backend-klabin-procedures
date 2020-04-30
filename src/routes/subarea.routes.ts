@@ -1,30 +1,34 @@
 import { Router } from 'express';
 
+import { getRepository } from 'typeorm';
+
 import Subarea from '../models/Subarea';
+import CreateSubareaService from '../services/CreateSubareaService';
 
 const subareaRouter = Router();
 
-interface SubareaProps {
-  id: string;
-  name?: string;
-  tag: string;
-  sector: string;
-  local: string;
-  observations: string;
-}
+subareaRouter.get('/', async (req, res) => {
+  const subareaRepository = getRepository(Subarea);
 
-const subareas: SubareaProps[] = [];
+  const subareas = await subareaRepository.find({
+    select: ['id'],
+  });
 
-subareaRouter.get('/subarea', (req, res) => {
   return res.json(subareas);
 });
 
-subareaRouter.post('/subarea', (req, res) => {
+subareaRouter.post('/', async (req, res) => {
   const { name, tag, sector, local, observations } = req.body;
 
-  const subarea = new Subarea({ name, tag, sector, local, observations });
+  const createSubareaService = new CreateSubareaService();
 
-  subareas.push(subarea);
+  const subarea = await createSubareaService.execute({
+    name,
+    tag,
+    sector,
+    local,
+    observations,
+  });
 
   return res.json(subarea);
 });

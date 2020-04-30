@@ -1,10 +1,10 @@
 {
   "type": "postgres",
   "host": "localhost",
-  "port": 5433,
+  "port": 5432,
   "username": "postgres",
   "password": "klabin",
-  "database": "klabin-database",
+  "database": "klabin_database",
   "entities": [
     "./src/models/*.ts"
   ],

@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import appointmentsRouter from './appointments.routes';
+import subareaRouter from './subarea.routes';
 
 const routes = Router();
 
-routes.use('/subarea', appointmentsRouter);
+routes.use(subareaRouter);
 
 export default routes;

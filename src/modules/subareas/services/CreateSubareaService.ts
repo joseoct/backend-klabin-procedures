@@ -1,7 +1,8 @@
 import { getRepository } from 'typeorm';
-import Subarea from '../models/Subarea';
 
-interface Request {
+import Subarea from '../infra/typeorm/entities/Subarea';
+
+interface IRequest {
   name: string;
   tag: string;
   sector: string;
@@ -16,7 +17,7 @@ class CreateSubareaService {
     sector,
     local,
     observations,
-  }: Request): Promise<Subarea> {
+  }: IRequest): Promise<Subarea> {
     const subareaRepository = getRepository(Subarea);
 
     const subareaCreated = subareaRepository.create({

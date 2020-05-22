@@ -3,15 +3,15 @@
   "host": "localhost",
   "port": 5432,
   "username": "postgres",
-  "password": "klabin",
+  "password": "docker",
   "database": "klabin_database",
   "entities": [
     "./src/models/*.ts"
   ],
   "migrations": [
-    "./src/database/migrations/*.ts"
+    "./src/shared/infra/typeorm/migrations/*.ts"
   ],
   "cli": {
-    "migrationsDir": "./src/database/migrations"
+    "migrationsDir": "./src/shared/infra/typeorm/migrations"
   }
 }

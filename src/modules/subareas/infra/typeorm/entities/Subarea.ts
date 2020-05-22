@@ -7,7 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import Procedure from './Procedure';
+import Procedure from '@modules/procedures/infra/typeorm/entities/Procedure';
 
 @Entity('subareas')
 class Subarea {

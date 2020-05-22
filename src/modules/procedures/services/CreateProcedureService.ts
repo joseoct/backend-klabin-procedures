@@ -1,8 +1,8 @@
 import { getRepository } from 'typeorm';
 
-import Procedure from '../models/Procedure';
+import Procedure from '../infra/typeorm/entities/Procedure';
 
-interface Request {
+interface IRequest {
   description: string;
   font: string;
   local: string;
@@ -19,7 +19,7 @@ class CreateProcedureService {
     tag,
     font,
     id,
-  }: Request): Promise<Procedure> {
+  }: IRequest): Promise<Procedure> {
     const procedureRepository = getRepository(Procedure);
 
     const biggestIndex = await procedureRepository

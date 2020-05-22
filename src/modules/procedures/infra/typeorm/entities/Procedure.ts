@@ -8,7 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import Subarea from './Subarea';
+import Subarea from '@modules/subareas/infra/typeorm/entities/Subarea';
 
 @Entity('procedures')
 class Procedure {

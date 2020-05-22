@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server';
 
-const typeDefs = gql`
+const subareaSchema = gql`
   type Subarea {
     id: ID!
     name: String!
@@ -25,4 +25,4 @@ const typeDefs = gql`
   }
 `;
 
-export default typeDefs;
+export default subareaSchema;

@@ -1,10 +1,14 @@
 import { ApolloServer } from 'apollo-server';
-import typeDefs from './schemas/schema.gql';
-import resolvers from './resolvers/resolver';
+
+import subareaSchema from '@modules/subareas/infra/http/graphql/schemas/subarea.schema';
+import subareaResolver from '@modules/subareas/infra/http/graphql/resolvers/subarea.resolver';
 
 import '../../typeorm';
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs: subareaSchema,
+  resolvers: subareaResolver,
+});
 
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);

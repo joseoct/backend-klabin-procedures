@@ -36,6 +36,9 @@ class Procedure {
   @Column()
   subarea_id: string;
 
+  @Column()
+  subarea_image: string;
+
   @ManyToOne(() => Subarea, subarea => subarea.procedures, { eager: true })
   @JoinColumn({ name: 'subarea_id' })
   subarea: Subarea;

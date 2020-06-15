@@ -39,6 +39,11 @@ export default class CreateProcedures1588278786570
             type: 'varchar',
           },
           {
+            name: 'subarea_image',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
             name: 'subarea_id',
             type: 'uuid',
             isNullable: true,

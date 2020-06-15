@@ -1,6 +1,7 @@
-import { getRepository } from 'typeorm';
+import { inject, injectable } from 'tsyringe';
 
 import Subarea from '../infra/typeorm/entities/Subarea';
+import ISubareasRepository from '../repositories/ISubareasRepository';
 
 interface IRequest {
   name: string;
@@ -10,7 +11,13 @@ interface IRequest {
   observations: string;
 }
 
+@injectable()
 class CreateSubareaService {
+  constructor(
+    @inject('SubareasRepository')
+    private subareasRepository: ISubareasRepository,
+  ) {}
+
   public async execute({
     name,
     tag,
@@ -18,9 +25,7 @@ class CreateSubareaService {
     local,
     observations,
   }: IRequest): Promise<Subarea> {
-    const subareaRepository = getRepository(Subarea);
-
-    const subareaCreated = subareaRepository.create({
+    const subarea = await this.subareasRepository.create({
       name,
       tag,
       sector,
@@ -28,9 +33,7 @@ class CreateSubareaService {
       observations,
     });
 
-    await subareaRepository.save(subareaCreated);
-
-    return subareaCreated;
+    return subarea;
   }
 }
 

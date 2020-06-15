@@ -1,44 +1,35 @@
-import { getRepository } from 'typeorm';
+import { inject, injectable } from 'tsyringe';
 
 import Procedure from '../infra/typeorm/entities/Procedure';
 
-interface IRequest {
-  description: string;
-  font: string;
-  local: string;
-  observations: string;
-  tag: string;
-  id: string;
-}
+import IProceduresRepository from '../repositories/IProceduresRepository';
+import ICreateProcedureDTO from '../dtos/ICreateProcedureDTO';
 
+@injectable()
 class CreateProcedureService {
+  constructor(
+    @inject('ProceduresRepository')
+    private proceduresRepository: IProceduresRepository,
+  ) {}
+
   public async execute({
+    id,
     description,
     observations,
     local,
     tag,
     font,
-    id,
-  }: IRequest): Promise<Procedure> {
-    const procedureRepository = getRepository(Procedure);
-
-    const biggestIndex = await procedureRepository
-      .createQueryBuilder('procedures')
-      .select('MAX(procedures.index)', 'max')
-      .where('subarea_id = :id', { id })
-      .getRawOne();
-
-    const procedure = procedureRepository.create({
-      index: biggestIndex.max === null ? 1 : biggestIndex.max + 1,
+    subarea_image,
+  }: ICreateProcedureDTO): Promise<Procedure> {
+    const procedure = this.proceduresRepository.create({
+      id,
       description,
       observations,
       local,
       tag,
       font,
-      subarea_id: id,
+      subarea_image,
     });
-
-    await procedureRepository.save(procedure);
 
     return procedure;
   }

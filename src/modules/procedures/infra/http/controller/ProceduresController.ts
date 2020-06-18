@@ -6,6 +6,7 @@ import CreateProcedureService from '../../../services/CreateProcedureService';
 class ProceduresController {
   public async create(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
+
     const { description, observations, local, tag, font } = req.body;
 
     const createProcedureService = container.resolve(CreateProcedureService);

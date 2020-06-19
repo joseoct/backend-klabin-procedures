@@ -12,6 +12,12 @@ class SubareasRepository implements ISubareasRepository {
     this.ormRepository = getRepository(Subarea);
   }
 
+  public async getAllSubareas(): Promise<Subarea[]> {
+    const subareas = this.ormRepository.find();
+
+    return subareas;
+  }
+
   public async create({
     local,
     name,

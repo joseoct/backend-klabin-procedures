@@ -6,6 +6,6 @@ const subareaRouter = Router();
 const subareaController = new SubareaController();
 
 subareaRouter.post('/', subareaController.create);
-// subareaRouter.get('/', subareaController.index);
+subareaRouter.get('/', subareaController.index);
 
 export default subareaRouter;

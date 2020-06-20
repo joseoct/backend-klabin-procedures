@@ -4,7 +4,7 @@ import Subarea from '../infra/typeorm/entities/Subarea';
 import ISubareasRepository from '../repositories/ISubareasRepository';
 
 @injectable()
-class GetAllSubareasService {
+class ListAllSubareasService {
   constructor(
     @inject('SubareasRepository')
     private subareasRepository: ISubareasRepository,
@@ -17,4 +17,4 @@ class GetAllSubareasService {
   }
 }
 
-export default GetAllSubareasService;
+export default ListAllSubareasService;

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import CreateSubareaService from '../../../services/CreateSubareaService';
-import GetAllSubareasService from '../../../services/GetAllSubareasService';
+import ListAllSubareasService from '../../../services/ListAllSubareasService';
 
 class SubareasController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -22,9 +22,9 @@ class SubareasController {
   }
 
   public async index(req: Request, res: Response): Promise<Response> {
-    const getAllSubareasService = container.resolve(GetAllSubareasService);
+    const listAllSubareasService = container.resolve(ListAllSubareasService);
 
-    const subareas = await getAllSubareasService.execute();
+    const subareas = await listAllSubareasService.execute();
 
     return res.json(subareas);
   }

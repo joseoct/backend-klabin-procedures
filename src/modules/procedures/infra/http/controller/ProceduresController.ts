@@ -2,8 +2,23 @@ import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 
 import CreateProcedureService from '../../../services/CreateProcedureService';
+import ListProceduresSpecificSubarea from '../../../services/ListProceduresSpecificSubarea';
 
 class ProceduresController {
+  public async index(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    const listProceduresSpecificSubarea = container.resolve(
+      ListProceduresSpecificSubarea,
+    );
+
+    const proceduresOfSpecificSubarea = await listProceduresSpecificSubarea.execute(
+      id,
+    );
+
+    return res.json(proceduresOfSpecificSubarea);
+  }
+
   public async create(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
 

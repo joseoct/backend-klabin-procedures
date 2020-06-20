@@ -41,6 +41,16 @@ class ProceduresRepository implements IProceduresRepository {
 
     return procedure;
   }
+
+  public async findAllProceduresSpecificSubarea(
+    id: string,
+  ): Promise<Procedure[]> {
+    const procedures = await this.ormRepository.find({
+      where: { subarea_id: id },
+    });
+
+    return procedures;
+  }
 }
 
 export default ProceduresRepository;

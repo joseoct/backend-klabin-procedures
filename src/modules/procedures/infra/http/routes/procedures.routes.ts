@@ -15,4 +15,6 @@ proceduresRouter.post(
   proceduresController.create,
 );
 
+proceduresRouter.get('/subarea/:id', proceduresController.index);
+
 export default proceduresRouter;

@@ -10,11 +10,11 @@ const proceduresRouter = Router();
 const proceduresController = new ProceduresController();
 
 proceduresRouter.post(
-  '/subarea/:id',
+  '/:id',
   upload.single('subarea_image'),
   proceduresController.create,
 );
 
-proceduresRouter.get('/subarea/:id', proceduresController.index);
+proceduresRouter.get('/:id/procedures', proceduresController.index);
 
 export default proceduresRouter;

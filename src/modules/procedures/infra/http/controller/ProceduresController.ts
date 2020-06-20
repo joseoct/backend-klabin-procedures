@@ -7,6 +7,7 @@ import ListProceduresSpecificSubarea from '../../../services/ListProceduresSpeci
 class ProceduresController {
   public async index(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
+    console.log(id);
 
     const listProceduresSpecificSubarea = container.resolve(
       ListProceduresSpecificSubarea,

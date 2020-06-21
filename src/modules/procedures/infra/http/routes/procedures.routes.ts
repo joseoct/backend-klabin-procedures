@@ -17,4 +17,6 @@ proceduresRouter.post(
 
 proceduresRouter.get('/:id/procedures', proceduresController.index);
 
+proceduresRouter.delete('/:id/:index', proceduresController.delete);
+
 export default proceduresRouter;

@@ -1,6 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 
 import IProceduresRepository from '@modules/procedures/repositories/IProceduresRepository';
+import AppError from '@shared/errors/AppError';
 import ICreateProcedure from '../../../dtos/ICreateProcedureDTO';
 import Procedure from '../entities/Procedure';
 
@@ -50,6 +51,38 @@ class ProceduresRepository implements IProceduresRepository {
     });
 
     return procedures;
+  }
+
+  public async deleteProcedureSpecificSubarea(
+    id: string,
+    index: number,
+  ): Promise<Procedure[]> {
+    const findProcedure = await this.ormRepository.findOne({
+      where: {
+        subarea_id: id,
+        index,
+      },
+    });
+
+    if (!findProcedure) {
+      throw new AppError('Erro ao deletar procedimento', 500);
+    }
+
+    await this.ormRepository.delete({ subarea_id: id, index });
+
+    const procedures = await this.ormRepository.find({
+      where: { subarea_id: id },
+    });
+
+    const fixedProcedures = procedures.map(procedure =>
+      procedure.index > index
+        ? { ...procedure, index: procedure.index - 1 }
+        : procedure,
+    );
+
+    await this.ormRepository.save(fixedProcedures);
+
+    return fixedProcedures;
   }
 }
 

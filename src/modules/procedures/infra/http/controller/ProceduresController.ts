@@ -3,11 +3,26 @@ import { Request, Response } from 'express';
 
 import CreateProcedureService from '../../../services/CreateProcedureService';
 import ListProceduresSpecificSubarea from '../../../services/ListProceduresSpecificSubarea';
+import DeleteProcedureSpecificSuybarea from '../../../services/DeleteProcedureSpecificSuybarea';
 
 class ProceduresController {
+  public async delete(req: Request, res: Response): Promise<Response> {
+    const { id, index } = req.params;
+
+    const deleteProcedureSpecificSuybarea = container.resolve(
+      DeleteProcedureSpecificSuybarea,
+    );
+
+    const fixedProcedures = await deleteProcedureSpecificSuybarea.execute(
+      id,
+      Number(index),
+    );
+
+    return res.json(fixedProcedures).status(200);
+  }
+
   public async index(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    console.log(id);
 
     const listProceduresSpecificSubarea = container.resolve(
       ListProceduresSpecificSubarea,

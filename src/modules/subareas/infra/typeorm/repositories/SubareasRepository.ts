@@ -1,5 +1,6 @@
 import { Repository, getRepository } from 'typeorm';
 
+import AppError from '@shared/errors/AppError';
 import Subarea from '../entities/Subarea';
 import ISubareasRepository from '../../../repositories/ISubareasRepository';
 
@@ -12,7 +13,17 @@ class SubareasRepository implements ISubareasRepository {
     this.ormRepository = getRepository(Subarea);
   }
 
-  public async findAllSubareas(): Promise<Subarea[]> {
+  public async delete(id: string): Promise<void> {
+    const findSubarea = await this.ormRepository.findOne(id);
+
+    if (!findSubarea) {
+      throw new AppError('Falha ao deletar subarea', 500);
+    }
+
+    await this.ormRepository.remove(findSubarea);
+  }
+
+  public async list(): Promise<Subarea[]> {
     const subareas = this.ormRepository.find();
 
     return subareas;

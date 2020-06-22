@@ -11,7 +11,7 @@ class ListAllSubareasService {
   ) {}
 
   public async execute(): Promise<Subarea[]> {
-    const subareas = await this.subareasRepository.getAllSubareas();
+    const subareas = await this.subareasRepository.list();
 
     return subareas;
   }

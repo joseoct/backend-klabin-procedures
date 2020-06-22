@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 
 import CreateSubareaService from '../../../services/CreateSubareaService';
 import ListAllSubareasService from '../../../services/ListAllSubareasService';
+import DeleteSubareaService from '../../../services/DeleteSubareaService';
 
 class SubareasController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -27,6 +28,16 @@ class SubareasController {
     const subareas = await listAllSubareasService.execute();
 
     return res.json(subareas);
+  }
+
+  public async delete(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    const deleteSubareaService = container.resolve(DeleteSubareaService);
+
+    await deleteSubareaService.execute(id);
+
+    return res.json().status(200);
   }
 }
 

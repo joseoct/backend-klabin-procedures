@@ -7,5 +7,6 @@ const subareaController = new SubareaController();
 
 subareaRouter.post('/', subareaController.create);
 subareaRouter.get('/', subareaController.index);
+subareaRouter.delete('/:id', subareaController.delete);
 
 export default subareaRouter;

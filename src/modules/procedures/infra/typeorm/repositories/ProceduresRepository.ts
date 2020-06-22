@@ -19,7 +19,7 @@ class ProceduresRepository implements IProceduresRepository {
     local,
     observations,
     description,
-    subarea_image,
+    procedure_image,
   }: ICreateProcedure): Promise<Procedure> {
     const biggestIndex = await this.ormRepository
       .createQueryBuilder('procedures')
@@ -34,7 +34,7 @@ class ProceduresRepository implements IProceduresRepository {
       local,
       observations,
       description,
-      subarea_image,
+      procedure_image,
       subarea_id: id,
     });
 

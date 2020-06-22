@@ -19,7 +19,7 @@ class CreateProcedureService {
     local,
     tag,
     font,
-    subarea_image,
+    procedure_image,
   }: ICreateProcedureDTO): Promise<Procedure> {
     const procedure = this.proceduresRepository.create({
       id,
@@ -28,7 +28,7 @@ class CreateProcedureService {
       local,
       tag,
       font,
-      subarea_image,
+      procedure_image,
     });
 
     return procedure;

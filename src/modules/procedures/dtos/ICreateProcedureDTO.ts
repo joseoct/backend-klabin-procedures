@@ -5,5 +5,5 @@ export default interface ICreateProcedureDTO {
   font: string;
   local: string;
   observations: string;
-  subarea_image: string;
+  procedure_image: string;
 }

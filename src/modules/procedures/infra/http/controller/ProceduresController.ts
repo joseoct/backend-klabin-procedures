@@ -49,7 +49,7 @@ class ProceduresController {
       local,
       tag,
       font,
-      subarea_image: req.file.filename,
+      procedure_image: req.file.filename,
     });
 
     return res.json(procedure);

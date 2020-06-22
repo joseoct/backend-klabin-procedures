@@ -39,7 +39,7 @@ export default class CreateProcedures1588278786570
             type: 'varchar',
           },
           {
-            name: 'subarea_image',
+            name: 'procedure_image',
             type: 'varchar',
             isNullable: false,
           },

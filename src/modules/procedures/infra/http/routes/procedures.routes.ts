@@ -11,7 +11,7 @@ const proceduresController = new ProceduresController();
 
 proceduresRouter.post(
   '/:id',
-  upload.single('subarea_image'),
+  upload.single('procedure_image'),
   proceduresController.create,
 );
 

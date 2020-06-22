@@ -1,5 +1,5 @@
 export default interface ICreateSubareaDTO {
-  name: string;
+  name?: string;
   tag: string;
   sector: string;
   local: string;

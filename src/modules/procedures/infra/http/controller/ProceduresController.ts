@@ -2,14 +2,16 @@ import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 
 import CreateProcedureService from '../../../services/CreateProcedureService';
-import ListProcedures from '../../../services/ListProcedures';
-import DeleteProcedure from '../../../services/DeleteProcedure';
+import ListProceduresService from '../../../services/ListProceduresService';
+import DeleteProcedureService from '../../../services/DeleteProcedureService';
 
 class ProceduresController {
   public async delete(req: Request, res: Response): Promise<Response> {
     const { id, index } = req.params;
 
-    const deleteProcedureSpecificSuybarea = container.resolve(DeleteProcedure);
+    const deleteProcedureSpecificSuybarea = container.resolve(
+      DeleteProcedureService,
+    );
 
     const fixedProcedures = await deleteProcedureSpecificSuybarea.execute(
       id,
@@ -22,7 +24,9 @@ class ProceduresController {
   public async index(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
 
-    const listProceduresSpecificSubarea = container.resolve(ListProcedures);
+    const listProceduresSpecificSubarea = container.resolve(
+      ListProceduresService,
+    );
 
     const proceduresOfSpecificSubarea = await listProceduresSpecificSubarea.execute(
       id,

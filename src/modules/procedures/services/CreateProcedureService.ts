@@ -21,7 +21,7 @@ class CreateProcedureService {
     font,
     procedure_image,
   }: ICreateProcedureDTO): Promise<Procedure> {
-    const procedure = this.proceduresRepository.create({
+    const procedure = this.proceduresRepository.createProcedureSpecificSubarea({
       id,
       description,
       observations,

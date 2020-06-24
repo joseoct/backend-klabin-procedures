@@ -1,6 +1,5 @@
 import { Repository, getRepository } from 'typeorm';
 
-import AppError from '@shared/errors/AppError';
 import Subarea from '../entities/Subarea';
 import ISubareasRepository from '../../../repositories/ISubareasRepository';
 
@@ -13,61 +12,32 @@ class SubareasRepository implements ISubareasRepository {
     this.ormRepository = getRepository(Subarea);
   }
 
-  public async update(
-    id: string,
-    { local, name, observations, sector, tag }: ICreateSubareaDTO,
-  ): Promise<Subarea> {
+  public async findById(id: string): Promise<Subarea | undefined> {
     const findSubarea = await this.ormRepository.findOne(id);
-
-    if (!findSubarea) {
-      throw new AppError('Falha ao alterar dados da subarea');
-    }
-
-    findSubarea.name = name;
-    findSubarea.local = local;
-    findSubarea.sector = sector;
-    findSubarea.tag = tag;
-    findSubarea.observations = observations;
-
-    await this.ormRepository.save(findSubarea);
 
     return findSubarea;
   }
 
-  public async delete(id: string): Promise<void> {
-    const findSubarea = await this.ormRepository.findOne(id);
-
-    if (!findSubarea) {
-      throw new AppError('Falha ao deletar subarea', 500);
-    }
-
-    await this.ormRepository.remove(findSubarea);
-  }
-
-  public async list(): Promise<Subarea[]> {
+  public async findAllSubareas(): Promise<Subarea[]> {
     const subareas = this.ormRepository.find();
 
     return subareas;
   }
 
-  public async create({
-    local,
-    name,
-    observations,
-    sector,
-    tag,
-  }: ICreateSubareaDTO): Promise<Subarea> {
-    const subarea = this.ormRepository.create({
-      local,
-      name,
-      observations,
-      sector,
-      tag,
-    });
+  public async create(subareaData: ICreateSubareaDTO): Promise<Subarea> {
+    const subarea = this.ormRepository.create(subareaData);
 
     await this.ormRepository.save(subarea);
 
     return subarea;
+  }
+
+  public async save(subarea: Subarea): Promise<Subarea> {
+    return this.ormRepository.save(subarea);
+  }
+
+  public async delete(subarea: Subarea): Promise<void> {
+    await this.ormRepository.remove(subarea);
   }
 }
 

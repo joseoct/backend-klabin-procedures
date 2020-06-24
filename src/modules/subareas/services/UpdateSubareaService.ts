@@ -1,8 +1,9 @@
 import { inject, injectable } from 'tsyringe';
+import AppError from '@shared/errors/AppError';
 import ISubareasRepository from '../repositories/ISubareasRepository';
 import Subarea from '../infra/typeorm/entities/Subarea';
 
-interface IRequest {
+interface ISubarea {
   name: string;
   tag: string;
   sector: string;
@@ -19,17 +20,25 @@ class UpdateSubareaService {
 
   public async execute(
     id: string,
-    { local, name, observations, tag, sector }: IRequest,
+    { local, observations, sector, tag, name }: Subarea,
   ): Promise<Subarea> {
-    const subareaUpdated = this.subareasRepository.update(id, {
-      local,
-      name,
-      observations,
-      tag,
-      sector,
-    });
+    const subarea = await this.subareasRepository.findById(id);
 
-    return subareaUpdated;
+    if (!subarea) {
+      throw new AppError(
+        'Não foi possível encontrar a subarea para fazer a atualização',
+      );
+    }
+
+    subarea.local = local;
+    subarea.observations = observations;
+    subarea.sector = sector;
+    subarea.tag = tag;
+    subarea.name = name;
+
+    const updatedSubarea = await this.subareasRepository.save(subarea);
+
+    return updatedSubarea;
   }
 }
 

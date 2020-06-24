@@ -12,7 +12,7 @@ class ProceduresRepository implements IProceduresRepository {
     this.ormRepository = getRepository(Procedure);
   }
 
-  public async create({
+  public async createProcedureSpecificSubarea({
     id,
     tag,
     font,

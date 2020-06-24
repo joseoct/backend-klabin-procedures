@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import AppError from '@shared/errors/AppError';
 import ISubareasRepository from '../repositories/ISubareasRepository';
 
 @injectable()
@@ -9,7 +10,13 @@ class DeleteSubareaService {
   ) {}
 
   public async execute(id: string): Promise<void> {
-    await this.subareasRepository.delete(id);
+    const subarea = await this.subareasRepository.findById(id);
+
+    if (!subarea) {
+      throw new AppError('Não foi possível achar a subarea a ser deletada');
+    }
+
+    await this.subareasRepository.delete(subarea);
   }
 }
 

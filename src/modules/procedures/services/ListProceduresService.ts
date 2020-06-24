@@ -9,9 +9,9 @@ class ListProceduresSpecificSubarea {
     private proceduresRepository: IProceduresRepository,
   ) {}
 
-  public async execute(id: string): Promise<Procedure[]> {
-    const procedures = await this.proceduresRepository.findAllProceduresSpecificSubarea(
-      id,
+  public async execute(subarea_id: string): Promise<Procedure[]> {
+    const procedures = await this.proceduresRepository.findAllProcedures(
+      subarea_id,
     );
 
     return procedures;

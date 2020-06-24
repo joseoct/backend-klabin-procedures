@@ -1,5 +1,4 @@
 export default interface ICreateProcedureDTO {
-  id: string;
   description: string;
   tag: string;
   font: string;

@@ -7,14 +7,14 @@ import DeleteProcedureService from '../../../services/DeleteProcedureService';
 
 class ProceduresController {
   public async delete(req: Request, res: Response): Promise<Response> {
-    const { id, index } = req.params;
+    const { id: subarea_id, index } = req.params;
 
     const deleteProcedureSpecificSuybarea = container.resolve(
       DeleteProcedureService,
     );
 
     const fixedProcedures = await deleteProcedureSpecificSuybarea.execute(
-      id,
+      subarea_id,
       Number(index),
     );
 
@@ -22,28 +22,27 @@ class ProceduresController {
   }
 
   public async index(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
+    const { id: subarea_id } = req.params;
 
     const listProceduresSpecificSubarea = container.resolve(
       ListProceduresService,
     );
 
     const proceduresOfSpecificSubarea = await listProceduresSpecificSubarea.execute(
-      id,
+      subarea_id,
     );
 
     return res.json(proceduresOfSpecificSubarea);
   }
 
   public async create(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
+    const { id: subarea_id } = req.params;
 
     const { description, observations, local, tag, font } = req.body;
 
     const createProcedureService = container.resolve(CreateProcedureService);
 
-    const procedure = await createProcedureService.execute({
-      id,
+    const procedure = await createProcedureService.execute(subarea_id, {
       description,
       observations,
       local,

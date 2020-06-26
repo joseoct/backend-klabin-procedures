@@ -14,9 +14,8 @@ proceduresRouter.post(
   upload.single('procedure_image'),
   proceduresController.create,
 );
-
 proceduresRouter.get('/:id/procedures', proceduresController.index);
-
 proceduresRouter.delete('/:id/:index', proceduresController.delete);
+proceduresRouter.put('/:id/:index', proceduresController.update);
 
 export default proceduresRouter;

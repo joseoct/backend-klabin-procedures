@@ -4,8 +4,30 @@ import { Request, Response } from 'express';
 import CreateProcedureService from '../../../services/CreateProcedureService';
 import ListProceduresService from '../../../services/ListProceduresService';
 import DeleteProcedureService from '../../../services/DeleteProcedureService';
+import UpdateProcedureService from '../../../services/UpdateProcedureService';
 
 class ProceduresController {
+  public async update(req: Request, res: Response): Promise<Response> {
+    const { id: subarea_id, index } = req.params;
+    const { description, observations, local, tag, font } = req.body;
+
+    const updateProcedureService = container.resolve(UpdateProcedureService);
+
+    const updatedProcedure = await updateProcedureService.execute(
+      {
+        description,
+        observations,
+        local,
+        tag,
+        font,
+      },
+      subarea_id,
+      Number(index),
+    );
+
+    return res.json(updatedProcedure);
+  }
+
   public async delete(req: Request, res: Response): Promise<Response> {
     const { id: subarea_id, index } = req.params;
 

@@ -37,6 +37,7 @@ class ProceduresRepository implements IProceduresRepository {
   public async findAllProcedures(subarea_id: string): Promise<Procedure[]> {
     const procedures = await this.ormRepository.find({
       where: { subarea_id },
+      order: { index: 'ASC' },
     });
 
     return procedures;
@@ -67,35 +68,6 @@ class ProceduresRepository implements IProceduresRepository {
   public async saveMany(procedures: Procedure[]): Promise<Procedure[]> {
     return this.ormRepository.save(procedures);
   }
-
-  // public async delete(id: string, index: number): Promise<Procedure[]> {
-  //   const findProcedure = await this.ormRepository.findOne({
-  //     where: {
-  //       subarea_id: id,
-  //       index,
-  //     },
-  //   });
-
-  //   if (!findProcedure) {
-  //     throw new AppError('Erro ao deletar procedimento', 500);
-  //   }
-
-  //   await this.ormRepository.delete({ subarea_id: id, index });
-
-  //   const procedures = await this.ormRepository.find({
-  //     where: { subarea_id: id },
-  //   });
-
-  //   const fixedProcedures = procedures.map(procedure =>
-  //     procedure.index > index
-  //       ? { ...procedure, index: procedure.index - 1 }
-  //       : procedure,
-  //   );
-
-  //   await this.ormRepository.save(fixedProcedures);
-
-  //   return fixedProcedures;
-  // }
 }
 
 export default ProceduresRepository;

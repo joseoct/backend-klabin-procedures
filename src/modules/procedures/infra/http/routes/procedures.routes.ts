@@ -5,9 +5,13 @@ import multer from 'multer';
 
 import ProceduresController from '../controller/ProceduresController';
 
+import ProcedureImageController from '../controller/ProcedureImageController';
+
 const upload = multer(uploadConfig.multer);
 const proceduresRouter = Router();
 const proceduresController = new ProceduresController();
+
+const procedureImageController = new ProcedureImageController();
 
 proceduresRouter.post(
   '/:id',
@@ -17,5 +21,7 @@ proceduresRouter.post(
 proceduresRouter.get('/:id/procedures', proceduresController.index);
 proceduresRouter.delete('/:id/:index', proceduresController.delete);
 proceduresRouter.put('/:id/:index', proceduresController.update);
+
+proceduresRouter.patch('/:id/:index', procedureImageController.update);
 
 export default proceduresRouter;

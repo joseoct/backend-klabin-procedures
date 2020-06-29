@@ -1,5 +1,7 @@
 import { container } from 'tsyringe';
 
+import './providers/StorageProvider';
+
 import SubareasRepository from '@modules/subareas/infra/typeorm/repositories/SubareasRepository';
 import ISubareasRepository from '@modules/subareas/repositories/ISubareasRepository';
 

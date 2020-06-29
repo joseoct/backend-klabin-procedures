@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import ISubareasRepository from '@modules/subareas/repositories/ISubareasRepository';
 import AppError from '@shared/errors/AppError';
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 import Procedure from '../infra/typeorm/entities/Procedure';
 
 import IProceduresRepository from '../repositories/IProceduresRepository';
@@ -15,6 +16,9 @@ class CreateProcedureService {
 
     @inject('ProceduresRepository')
     private proceduresRepository: IProceduresRepository,
+
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider,
   ) {}
 
   public async execute(
@@ -34,13 +38,15 @@ class CreateProcedureService {
       throw new AppError('Subarea nao encontrada');
     }
 
+    const fileName = await this.storageProvider.saveFile(procedure_image);
+
     const procedure = await this.proceduresRepository.create(subarea_id, {
       description,
       observations,
       local,
       tag,
       font,
-      procedure_image,
+      procedure_image: fileName,
     });
 
     return procedure;

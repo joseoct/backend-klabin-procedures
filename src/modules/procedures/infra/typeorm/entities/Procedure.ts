@@ -8,6 +8,8 @@ import {
   JoinColumn,
 } from 'typeorm';
 
+import { Expose } from 'class-transformer';
+
 import Subarea from '@modules/subareas/infra/typeorm/entities/Subarea';
 
 @Entity('procedures')
@@ -48,6 +50,11 @@ class Procedure {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Expose({ name: 'procedure_image_url' })
+  getAvatarUrl(): string {
+    return `http://localhost:3333/files/${this.procedure_image}`;
+  }
 }
 
 export default Procedure;

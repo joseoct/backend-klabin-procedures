@@ -1,6 +1,8 @@
 import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 
+import { classToClass } from 'class-transformer';
+
 import CreateProcedureService from '../../../services/CreateProcedureService';
 import ListProceduresService from '../../../services/ListProceduresService';
 import DeleteProcedureService from '../../../services/DeleteProcedureService';
@@ -73,7 +75,7 @@ class ProceduresController {
       procedure_image: req.file.filename,
     });
 
-    return res.json(procedure);
+    return res.json(classToClass(procedure));
   }
 }
 

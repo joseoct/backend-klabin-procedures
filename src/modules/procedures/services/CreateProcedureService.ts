@@ -6,7 +6,16 @@ import IStorageProvider from '@shared/container/providers/StorageProvider/models
 import Procedure from '../infra/typeorm/entities/Procedure';
 
 import IProceduresRepository from '../repositories/IProceduresRepository';
-import ICreateProcedureDTO from '../dtos/ICreateProcedureDTO';
+
+interface IRequest {
+  subarea_id: string;
+  description: string;
+  observations: string;
+  local: string;
+  tag: string;
+  font: string;
+  procedure_image: string;
+}
 
 @injectable()
 class CreateProcedureService {
@@ -21,17 +30,15 @@ class CreateProcedureService {
     private storageProvider: IStorageProvider,
   ) {}
 
-  public async execute(
-    subarea_id: string,
-    {
-      description,
-      observations,
-      local,
-      tag,
-      font,
-      procedure_image,
-    }: ICreateProcedureDTO,
-  ): Promise<Procedure> {
+  public async execute({
+    subarea_id,
+    description,
+    observations,
+    local,
+    tag,
+    font,
+    procedure_image,
+  }: IRequest): Promise<Procedure> {
     const subarea = await this.subareasRepository.findById(subarea_id);
 
     if (!subarea) {

@@ -15,19 +15,17 @@ class ProceduresController {
 
     const updateProcedureService = container.resolve(UpdateProcedureService);
 
-    const updatedProcedure = await updateProcedureService.execute(
-      {
-        description,
-        observations,
-        local,
-        tag,
-        font,
-      },
+    const updatedProcedure = await updateProcedureService.execute({
       subarea_id,
-      Number(index),
-    );
+      index: Number(index),
+      description,
+      observations,
+      local,
+      tag,
+      font,
+    });
 
-    return res.json(updatedProcedure);
+    return res.json(classToClass(updatedProcedure));
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {
@@ -37,12 +35,12 @@ class ProceduresController {
       DeleteProcedureService,
     );
 
-    const fixedProcedures = await deleteProcedureSpecificSuybarea.execute(
+    const fixedProcedures = await deleteProcedureSpecificSuybarea.execute({
       subarea_id,
-      Number(index),
-    );
+      index: Number(index),
+    });
 
-    return res.json(fixedProcedures).status(200);
+    return res.json(classToClass(fixedProcedures)).status(200);
   }
 
   public async index(req: Request, res: Response): Promise<Response> {
@@ -56,7 +54,7 @@ class ProceduresController {
       subarea_id,
     );
 
-    return res.json(proceduresOfSpecificSubarea);
+    return res.json(classToClass(proceduresOfSpecificSubarea));
   }
 
   public async create(req: Request, res: Response): Promise<Response> {
@@ -66,7 +64,8 @@ class ProceduresController {
 
     const createProcedureService = container.resolve(CreateProcedureService);
 
-    const procedure = await createProcedureService.execute(subarea_id, {
+    const procedure = await createProcedureService.execute({
+      subarea_id,
       description,
       observations,
       local,

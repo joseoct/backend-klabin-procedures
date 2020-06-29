@@ -2,6 +2,10 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import ISubareasRepository from '../repositories/ISubareasRepository';
 
+interface IRequest {
+  id: string;
+}
+
 @injectable()
 class DeleteSubareaService {
   constructor(
@@ -9,7 +13,7 @@ class DeleteSubareaService {
     private subareasRepository: ISubareasRepository,
   ) {}
 
-  public async execute(id: string): Promise<void> {
+  public async execute({ id }: IRequest): Promise<void> {
     const subarea = await this.subareasRepository.findById(id);
 
     if (!subarea) {

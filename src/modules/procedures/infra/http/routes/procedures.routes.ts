@@ -22,6 +22,10 @@ proceduresRouter.get('/:id/procedures', proceduresController.index);
 proceduresRouter.delete('/:id/:index', proceduresController.delete);
 proceduresRouter.put('/:id/:index', proceduresController.update);
 
-proceduresRouter.patch('/:id/:index', procedureImageController.update);
+proceduresRouter.patch(
+  '/:id/:index',
+  upload.single('procedure_image'),
+  procedureImageController.update,
+);
 
 export default proceduresRouter;

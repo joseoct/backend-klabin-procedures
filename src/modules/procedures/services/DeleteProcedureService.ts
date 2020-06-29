@@ -3,6 +3,11 @@ import AppError from '@shared/errors/AppError';
 import IProceduresRepository from '../repositories/IProceduresRepository';
 import Procedure from '../infra/typeorm/entities/Procedure';
 
+interface IRequest {
+  subarea_id: string;
+  index: number;
+}
+
 @injectable()
 class DeleteProcedureSpecificSuybarea {
   constructor(
@@ -10,10 +15,7 @@ class DeleteProcedureSpecificSuybarea {
     private proceduresRepository: IProceduresRepository,
   ) {}
 
-  public async execute(
-    subarea_id: string,
-    index: number,
-  ): Promise<Procedure[]> {
+  public async execute({ subarea_id, index }: IRequest): Promise<Procedure[]> {
     const foundProcedure = await this.proceduresRepository.findBySubareaIdAndIndex(
       subarea_id,
       index,
@@ -35,7 +37,9 @@ class DeleteProcedureSpecificSuybarea {
         : procedure,
     );
 
-    return this.proceduresRepository.saveMany(fixedProceduresIndexes);
+    return this.proceduresRepository.saveMany(
+      fixedProceduresIndexes as Procedure[],
+    );
   }
 }
 

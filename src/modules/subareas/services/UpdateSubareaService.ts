@@ -3,7 +3,7 @@ import AppError from '@shared/errors/AppError';
 import ISubareasRepository from '../repositories/ISubareasRepository';
 import Subarea from '../infra/typeorm/entities/Subarea';
 
-interface ISubarea {
+interface IRequest {
   name: string;
   tag: string;
   sector: string;
@@ -20,7 +20,7 @@ class UpdateSubareaService {
 
   public async execute(
     id: string,
-    { local, observations, sector, tag, name }: Subarea,
+    { local, observations, sector, tag, name }: IRequest,
   ): Promise<Subarea> {
     const subarea = await this.subareasRepository.findById(id);
 

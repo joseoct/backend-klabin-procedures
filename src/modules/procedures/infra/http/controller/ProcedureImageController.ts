@@ -1,12 +1,24 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
+
+import UpdateProcedureImageService from '../../../services/UpdateProcedureImageService';
 
 class ProcedureImageController {
-  public async update(req: Request, res: Response): Promise<Response> {
+  public async update(req: Request, res: Response): Promise<void> {
     const { id: subarea_id, index } = req.params;
 
-    console.log(subarea_id, index);
+    const updateProcedureImageService = container.resolve(
+      UpdateProcedureImageService,
+    );
 
-    res.json({ ok: true });
+    const updatedProcedureImage = await updateProcedureImageService.execute({
+      subarea_id,
+      index: Number(index),
+      procedure_image: req.file.filename,
+    });
+
+    res.json(classToClass(updatedProcedureImage));
   }
 }
 

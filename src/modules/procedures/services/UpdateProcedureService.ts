@@ -4,6 +4,8 @@ import IProceduresRepository from '../repositories/IProceduresRepository';
 import Procedure from '../infra/typeorm/entities/Procedure';
 
 interface IRequest {
+  subarea_id: string;
+  index: number;
   description: string;
   observations: string;
   local: string;
@@ -18,11 +20,15 @@ class UpdateProcedureService {
     private proceduresRepository: IProceduresRepository,
   ) {}
 
-  public async execute(
-    { description, font, tag, local, observations }: IRequest,
-    subarea_id: string,
-    index: number,
-  ): Promise<Procedure> {
+  public async execute({
+    subarea_id,
+    index,
+    description,
+    font,
+    tag,
+    local,
+    observations,
+  }: IRequest): Promise<Procedure> {
     const foundProcedure = await this.proceduresRepository.findBySubareaIdAndIndex(
       subarea_id,
       index,

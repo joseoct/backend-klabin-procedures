@@ -39,10 +39,10 @@ class UpdateProcedureService {
     }
 
     foundProcedure.description = description;
-    foundProcedure.observations = font;
-    foundProcedure.local = tag;
-    foundProcedure.tag = local;
-    foundProcedure.font = observations;
+    foundProcedure.observations = observations;
+    foundProcedure.local = local;
+    foundProcedure.tag = tag;
+    foundProcedure.font = font;
 
     const updatedProcedure = await this.proceduresRepository.saveOne(
       foundProcedure,

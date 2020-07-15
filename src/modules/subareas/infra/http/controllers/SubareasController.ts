@@ -41,13 +41,13 @@ class SubareasController {
   }
 
   public async index(req: Request, res: Response): Promise<Response> {
-    const { tag, local } = req.query;
+    const { searchFor, searchValue } = req.query;
 
     const listSubareasService = container.resolve(ListSubareasService);
 
     const subareas = await listSubareasService.execute({
-      tag: !tag ? undefined : String(tag),
-      local: !local ? undefined : String(local),
+      searchFor: !searchFor ? undefined : String(searchFor),
+      searchValue: !searchValue ? undefined : String(searchValue),
     });
 
     return res.json(subareas);

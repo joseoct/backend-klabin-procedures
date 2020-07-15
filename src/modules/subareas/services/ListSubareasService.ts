@@ -4,8 +4,8 @@ import Subarea from '../infra/typeorm/entities/Subarea';
 import ISubareasRepository from '../repositories/ISubareasRepository';
 
 interface IRequest {
-  tag: string | undefined;
-  local: string | undefined;
+  searchFor: string | undefined;
+  searchValue: string | undefined;
 }
 
 @injectable()
@@ -15,15 +15,22 @@ class ListSubareasService {
     private subareasRepository: ISubareasRepository,
   ) {}
 
-  public async execute({ local, tag }: IRequest): Promise<Subarea[]> {
-    if (tag) {
-      const foundSubareas = await this.subareasRepository.findByTag(tag);
+  public async execute({
+    searchFor,
+    searchValue,
+  }: IRequest): Promise<Subarea[]> {
+    if (searchFor === 'tag' && searchValue) {
+      const foundSubareas = await this.subareasRepository.findByTag(
+        searchValue,
+      );
 
       return foundSubareas;
     }
 
-    if (local) {
-      const foundSubareas = await this.subareasRepository.findByLocal(local);
+    if (searchFor === 'local' && searchValue) {
+      const foundSubareas = await this.subareasRepository.findByLocal(
+        searchValue,
+      );
 
       return foundSubareas;
     }

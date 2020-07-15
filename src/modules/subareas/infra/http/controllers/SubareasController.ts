@@ -41,9 +41,14 @@ class SubareasController {
   }
 
   public async index(req: Request, res: Response): Promise<Response> {
+    const { tag, local } = req.query;
+
     const listSubareasService = container.resolve(ListSubareasService);
 
-    const subareas = await listSubareasService.execute();
+    const subareas = await listSubareasService.execute({
+      tag: !tag ? undefined : String(tag),
+      local: !local ? undefined : String(local),
+    });
 
     return res.json(subareas);
   }
@@ -53,7 +58,7 @@ class SubareasController {
 
     const deleteSubareaService = container.resolve(DeleteSubareaService);
 
-    await deleteSubareaService.execute(id);
+    await deleteSubareaService.execute({ id });
 
     return res.json().status(200);
   }

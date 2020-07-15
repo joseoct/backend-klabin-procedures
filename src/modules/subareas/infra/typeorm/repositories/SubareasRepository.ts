@@ -12,6 +12,24 @@ class SubareasRepository implements ISubareasRepository {
     this.ormRepository = getRepository(Subarea);
   }
 
+  public async findByLocal(local: string): Promise<Subarea[] | undefined> {
+    const foundSubareas = await this.ormRepository
+      .createQueryBuilder()
+      .where('LOWER(local) LIKE :local', { local: `%${local.toLowerCase()}%` })
+      .getMany();
+
+    return foundSubareas;
+  }
+
+  public async findByTag(tag: string): Promise<Subarea[] | undefined> {
+    const foundSubareas = await this.ormRepository
+      .createQueryBuilder()
+      .where('LOWER(tag) LIKE :tag', { tag: `%${tag.toLowerCase()}%` })
+      .getMany();
+
+    return foundSubareas;
+  }
+
   public async findById(id: string): Promise<Subarea | undefined> {
     const findSubarea = await this.ormRepository.findOne(id);
 

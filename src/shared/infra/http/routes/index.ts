@@ -6,6 +6,7 @@ import procedureRouter from '@modules/procedures/infra/http/routes/procedures.ro
 const routes = Router();
 
 routes.use('/subareas', subareaRouter);
+
 routes.use('/subareas', procedureRouter);
 
 export default routes;

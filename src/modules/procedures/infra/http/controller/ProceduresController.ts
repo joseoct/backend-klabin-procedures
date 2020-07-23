@@ -31,11 +31,11 @@ class ProceduresController {
   public async delete(req: Request, res: Response): Promise<Response> {
     const { id: subarea_id, index } = req.params;
 
-    const deleteProcedureSpecificSuybarea = container.resolve(
+    const deleteProcedureSpecificSubarea = container.resolve(
       DeleteProcedureService,
     );
 
-    const fixedProcedures = await deleteProcedureSpecificSuybarea.execute({
+    const fixedProcedures = await deleteProcedureSpecificSubarea.execute({
       subarea_id,
       index: Number(index),
     });

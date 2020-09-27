@@ -3,8 +3,9 @@ import ICreateUserDTO from '../dtos/ICreateUserDTO';
 import IFindAllProvidersDTO from '../dtos/IFindAllProvidersDTO';
 
 export default interface IUsersRepository {
-  findAllProviders(data: IFindAllProvidersDTO): Promise<User[]>;
+  findAllUsers(data: IFindAllProvidersDTO): Promise<User[]>;
   findById(id: string): Promise<User | undefined>;
+  findRoleById(id: string): Promise<string | undefined>;
   findByCod(email: string): Promise<User | undefined>;
   create(data: ICreateUserDTO): Promise<User>;
   save(data: User): Promise<User>;

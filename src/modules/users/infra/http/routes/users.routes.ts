@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
+import ensureIsAdmin from '@modules/users/infra/http/middlewares/ensureIsAdmin';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import UsersController from '../controllers/UsersController';
 
 const usersRouter = Router();
@@ -8,6 +10,9 @@ const usersController = new UsersController();
 
 // SoC: Separation of Concerns (Separação de Preocupações).
 // Rota: Receber a requisição, chamar outro arquivo, devolver uma resposta.
+
+usersRouter.use(ensureAuthenticated);
+usersRouter.use(ensureIsAdmin);
 
 usersRouter.post(
   '/',

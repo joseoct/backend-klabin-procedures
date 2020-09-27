@@ -19,6 +19,15 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
+  public async findRoleById(id: string): Promise<string | undefined> {
+    const user = await this.ormRepository.findOne({
+      select: ['role'],
+      where: { id },
+    });
+
+    return user.role;
+  }
+
   public async findByCod(cod: string): Promise<User | undefined> {
     const user = await this.ormRepository.findOne({
       where: { cod },
@@ -27,7 +36,7 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  public async findAllProviders({
+  public async findAllUsers({
     except_user_id,
   }: IFindAllProvidersDTO): Promise<User[]> {
     let users = await this.ormRepository.find();

@@ -21,4 +21,8 @@ export default class UsersController {
       return response.status(400).json({ error: error.message });
     }
   }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    return response.json({ message: 'oi' });
+  }
 }

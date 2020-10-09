@@ -7,6 +7,7 @@ import CreateProcedureService from '../../../services/CreateProcedureService';
 import ListProceduresService from '../../../services/ListProceduresService';
 import DeleteProcedureService from '../../../services/DeleteProcedureService';
 import UpdateProcedureService from '../../../services/UpdateProcedureService';
+import ShowProcedureService from '../../../services/ShowProcedureService';
 
 class ProceduresController {
   public async update(req: Request, res: Response): Promise<Response> {
@@ -40,7 +41,7 @@ class ProceduresController {
       index: Number(index),
     });
 
-    return res.json(classToClass(fixedProcedures)).status(200);
+    return res.json().status(200);
   }
 
   public async index(req: Request, res: Response): Promise<Response> {
@@ -75,6 +76,21 @@ class ProceduresController {
     });
 
     return res.json(classToClass(procedure));
+  }
+
+  public async show(req: Request, res: Response): Promise<Response> {
+    const { id: subarea_id, index } = req.params;
+
+    const showProcedureSpecificSubarea = container.resolve(
+      ShowProcedureService,
+    );
+
+    const procedure = await showProcedureSpecificSubarea.execute({
+      subarea_id,
+      index: Number(index),
+    });
+
+    return res.json(classToClass(procedure)).status(200);
   }
 }
 

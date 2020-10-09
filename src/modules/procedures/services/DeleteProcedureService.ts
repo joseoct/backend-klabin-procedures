@@ -9,7 +9,7 @@ interface IRequest {
 }
 
 @injectable()
-class DeleteProcedureSpecificSuybarea {
+class DeleteProcedureSpecificSubarea {
   constructor(
     @inject('ProceduresRepository')
     private proceduresRepository: IProceduresRepository,
@@ -43,4 +43,4 @@ class DeleteProcedureSpecificSuybarea {
   }
 }
 
-export default DeleteProcedureSpecificSuybarea;
+export default DeleteProcedureSpecificSubarea;

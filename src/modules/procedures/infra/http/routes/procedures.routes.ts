@@ -20,6 +20,7 @@ proceduresRouter.post(
 );
 proceduresRouter.get('/:id/procedures', proceduresController.index);
 proceduresRouter.delete('/:id/:index', proceduresController.delete);
+proceduresRouter.get('/:id/:index', proceduresController.show);
 proceduresRouter.put('/:id/:index', proceduresController.update);
 
 proceduresRouter.patch(

@@ -18,8 +18,6 @@ export default async function ensureAuthenticated(
 
   const user_role = await usersRepository.execute({ user_id });
 
-  console.log(permissions(user_role));
-
   if (!permissions(user_role)) {
     throw new AppError('erro', 401);
   }

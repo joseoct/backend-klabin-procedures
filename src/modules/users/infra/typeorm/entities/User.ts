@@ -14,6 +14,9 @@ class User {
   id: string;
 
   @Column()
+  name: string;
+
+  @Column()
   cod: string;
 
   @Column()
@@ -21,7 +24,6 @@ class User {
   password: string;
 
   @Column()
-  @Exclude()
   role: string;
 
   @CreateDateColumn()

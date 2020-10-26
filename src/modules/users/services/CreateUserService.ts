@@ -7,6 +7,7 @@ import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 interface IRequest {
+  name: string;
   cod: string;
   password: string;
   role: string;
@@ -22,7 +23,7 @@ class CreateUserService {
     private hashProvider: IHashProvider, // @inject('CacheProvider') // private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ cod, password, role }: IRequest): Promise<User> {
+  public async execute({ name, cod, password, role }: IRequest): Promise<User> {
     const checkUserExists = await this.usersRepository.findByCod(cod);
 
     if (checkUserExists) {
@@ -32,6 +33,7 @@ class CreateUserService {
     const hashedPassword = await this.hashProvider.generateHash(password);
 
     const user = await this.usersRepository.create({
+      name,
       cod,
       password: hashedPassword,
       role,

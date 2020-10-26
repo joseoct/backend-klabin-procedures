@@ -1,9 +1,8 @@
 import User from '../infra/typeorm/entities/User';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
-import IFindAllProvidersDTO from '../dtos/IFindAllProvidersDTO';
 
 export default interface IUsersRepository {
-  findAllUsers(data: IFindAllProvidersDTO): Promise<User[]>;
+  findAllOperators(): Promise<User[]>;
   findById(id: string): Promise<User | undefined>;
   findRoleById(id: string): Promise<string | undefined>;
   findByCod(email: string): Promise<User | undefined>;

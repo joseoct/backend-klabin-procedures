@@ -11,7 +11,7 @@ interface ITokenPayload {
   sub: string;
 }
 
-export default async function ensureIsSeniorOperator(
+export default async function ensureIsOperator(
   request: Request,
   response: Response,
   next: NextFunction,
@@ -22,11 +22,8 @@ export default async function ensureIsSeniorOperator(
 
   const user_role = await usersRepository.execute({ user_id });
 
-  if (user_role !== 'senior_operator') {
-    throw new AppError(
-      'Apenas operadores seniors conseguem fazer esta ação',
-      401,
-    );
+  if (user_role !== 'operator') {
+    throw new AppError('Apenas operadores conseguem fazer esta ação', 401);
   }
 
   next();

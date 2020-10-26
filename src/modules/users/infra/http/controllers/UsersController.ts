@@ -6,11 +6,12 @@ import { classToClass } from 'class-transformer';
 export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
-      const { cod, password, role } = request.body;
+      const { name, cod, password, role } = request.body;
 
       const createUserService = container.resolve(CreateUserService);
 
       const user = await createUserService.execute({
+        name,
         cod,
         password,
         role,

@@ -31,13 +31,13 @@ class CreateProcedureService {
   ) {}
 
   public async execute({
-    subarea_id,
     description,
-    observations,
-    local,
-    tag,
     font,
+    local,
+    observations,
     procedure_image,
+    subarea_id,
+    tag,
   }: IRequest): Promise<Procedure> {
     const subarea = await this.subareasRepository.findById(subarea_id);
 

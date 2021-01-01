@@ -1,3 +1,3 @@
 export default function permissions(role) {
-  return role === 'admin' || role === 'Operador';
+  return role === 'admin' || role === 'Operator';
 }
